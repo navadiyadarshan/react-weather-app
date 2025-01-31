@@ -14,8 +14,23 @@ const Prac = () => {
   const [temperatureUnit, setTemperatureUnit] = useState('C');
   const [weatherData, setWeatherData] = useState({
     city: '',
-    temperature: '--˚C',
-    feelLike: '--˚C',
+    temperature: '--',
+    feelLike: '--',
+    description: '...',
+    img : "",
+    date: '--',
+    sunrise: '--:-- AM/PM',
+    sunset: '--:-- AM/PM',
+    humidity: '00%',
+    windSpeed: '0.00 KM/h',
+    clouds: '--',
+    pressure: '-- hpa',
+    timezone : null,
+  });
+  const [weatherDataAll, setWeatherDataAll] = useState({
+    city: '',
+    temperature: '--',
+    feelLike: '--',
     description: '...',
     img : "",
     date: '--',
@@ -48,10 +63,10 @@ const Prac = () => {
         .then((res) => res.json())
         .then((metricData) =>{
           // set all basic data to obj
-          setWeatherData({
+          setWeatherDataAll({
             city: `${metricData.name}, ${metricData.sys.country}`,
-            temperature:  checkTemp(metricData.main.temp,temperatureUnit),
-            feelLike: checkTemp(metricData.main.feels_like,temperatureUnit),
+            temperature:  metricData.main.temp,
+            feelLike: metricData.main.feels_like,
             description: metricData.weather[0].description,
             img : getImgUrl(metricData.weather[0].icon),
             date: `${getDay(metricData.dt-23400, metricData.timezone)}, ${getDate(metricData.dt-23400, metricData.timezone)} at ${getTime(metricData.dt-23400, metricData.timezone)}`,
@@ -72,11 +87,40 @@ const Prac = () => {
   };
 
   useEffect(() => {
-    upDateForecast(allForecast,weatherData);
-  }, [weatherData, allForecast,phase]);
+    upDateForecast(allForecast,weatherDataAll);
+    setWeatherData({
+      city: weatherDataAll.city,
+      temperature: checkTemp(weatherDataAll.temperature, temperatureUnit),
+      feelLike: checkTemp(weatherDataAll.feelLike, temperatureUnit),
+      description: weatherDataAll.description,
+      img : weatherDataAll.img,
+      date: weatherDataAll.date,
+      sunrise: weatherDataAll.sunrise,
+      sunset: weatherDataAll.sunset,  
+      humidity: weatherDataAll.humidity,
+      windSpeed: weatherDataAll.windSpeed,
+      clouds: weatherDataAll.clouds,
+      pressure: weatherDataAll.pressure,
+      timezone : weatherDataAll.timezone,
+    })
+  }, [setWeatherDataAll, allForecast,phase]);
 
   useEffect(() => {
-    setWeatherData(weatherData);
+    setWeatherData({
+      city: weatherDataAll.city,
+      temperature: checkTemp(weatherDataAll?.temperature, temperatureUnit),
+      feelLike: checkTemp(weatherDataAll?.feelLike, temperatureUnit),
+      description: weatherDataAll.description,
+      img : weatherDataAll.img,
+      date: weatherDataAll.date,
+      sunrise: weatherDataAll.sunrise,
+      sunset: weatherDataAll.sunset,  
+      humidity: weatherDataAll.humidity,
+      windSpeed: weatherDataAll.windSpeed,
+      clouds: weatherDataAll.clouds,
+      pressure: weatherDataAll.pressure,
+      timezone : weatherDataAll.timezone,
+    })
     upDateForecast(allForecast,weatherData);
   }, [temperatureUnit]);
 

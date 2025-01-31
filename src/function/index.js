@@ -18,7 +18,7 @@ function getImgUrl(imgCode){
 }
 
 function checkTemp(temp,temperatureUnit){
-  // isConverterChange = true;
+  if(isNaN(temp)) return `-- ˚${temperatureUnit}`;
   if(temperatureUnit == 'F'){
     return (temp*9/5 +32).toFixed(2) + '˚F';
   }
