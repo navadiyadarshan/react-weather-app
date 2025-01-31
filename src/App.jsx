@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Card from './componants/card.jsx';
-import ForecastCard from './componants/ForecastCard.jsx';
+import Card from './components/Card.jsx';
+import ForecastCard from './components/ForecastCard.jsx';
 import {
   getDay,
   getDate,
