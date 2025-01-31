@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Card from './componants/card';
-import ForecastCard from './componants/ForecastCard';
+import Card from './componants/card.jsx';
+import ForecastCard from './componants/ForecastCard.jsx';
 import {
   getDay,
   getDate,
@@ -9,7 +9,7 @@ import {
   checkTemp
 } from './function/index.js'
 
-const Prac = () => {
+const App = () => {
   const [location, setLocation] = useState('');
   const [temperatureUnit, setTemperatureUnit] = useState('C');
   const [weatherData, setWeatherData] = useState({
@@ -216,5 +216,4 @@ const Prac = () => {
   );
 };
 
-export default Prac;
-
+export default App;
